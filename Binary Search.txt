@@ -1,0 +1,70 @@
+using System;
+
+class MainClass {
+  public static void Main (string[] args) {
+
+    int start;
+    int end;
+    int[] array1 = new int[] { 1, 7, 9, 17, 23, 47, 52, 61 };
+    string userInput;
+    int searchValue;
+    // Defining all variables in the program
+
+
+    Console.WriteLine("Enter the value you wish to search for");
+    userInput = Console.ReadLine();
+
+    bool res = int.TryParse(userInput, out searchValue);
+    if (res == false){
+      Console.WriteLine("That isn't a valid input");
+    }
+    else{
+    // Taking the value being searched for and converting its datatype
+
+    start = 0;
+    end = 7;
+    // Pre-defining the array boundaries
+
+  
+    int position = search(start, end, array1, searchValue);
+    if (position == -1){
+      Console.WriteLine("That value isn't in the array");
+    }
+    else{
+    Console.WriteLine(position);
+    }
+    }
+    // Master call of the function with output
+    
+  }
+  
+  public static int search(int start, int end, int[]array1, int searchValue)
+    {
+    	int middle = (end + start) / 2;
+	    if (start == end && array1[middle] != searchValue){
+		    return -1;
+      }
+      // Check to see if the value is actually in the list
+
+	    else if (array1[middle] == searchValue){
+	  	  return middle;
+      }
+      // Check to see if the middle value is the value you are searching for
+
+	    else if (array1[middle] < searchValue){
+		    return search(middle + 1, end, array1, searchValue);
+      }
+      // If the value is on the right side of the middle alter the limits of the array accordingly
+	
+	    else if (array1[middle] > searchValue){
+		    return search(start, middle -1, array1, searchValue);
+      }
+      // If the value is on the left side of the middle alter the limits of the array accordingly
+      
+      else{
+        Console.WriteLine("Something has gone wrong");
+        return -1;
+      }
+      // A catch statement in case the program somehow escapes the rest of the other statements
+}
+}
